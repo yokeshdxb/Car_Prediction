@@ -49,34 +49,36 @@ transmission_map = {
 # Streamlit UI
 st.title("🚗 Used Car Price Predictor")
 
-# Brand selection
+
+## Brand selection
 brand = st.selectbox("Select Brand", list(brand_to_models.keys()))
 model = st.selectbox("Select Model", brand_to_models[brand])
+engine_size = st.number_input("Engine Size (L)", min_value=0.5, max_value=10.0, value=1.5, step=0.1)
 fuel = st.selectbox("Select Fuel Type", list(fuel_map.keys()))
 transmission = st.selectbox("Select Transmission", list(transmission_map.keys()))
-mileage = st.number_input("Mileage (in km/l)", value=15.0)
-engine = st.number_input("Engine Capacity (in CC)", value=1500)
-power = st.number_input("Power (in bhp)", value=100.0)
-seats = st.number_input("Number of Seats", min_value=2, max_value=10, value=5)
-year = st.number_input("Year of Purchase", min_value=1990, max_value=2025, value=2015)
-kms = st.number_input("Kilometers Driven", value=50000)
+mileage = st.number_input("Mileage (km)", min_value=0, max_value=50000, value=5000)
+doors = st.selectbox("Number of Doors", [2, 3, 4, 5])
+owner_count = st.selectbox("Previous Owners", [0, 1, 2, 3, 4])
+year = st.slider("Year of Manufacture", 1990, datetime.datetime.now().year, 2015)
+
+
+# Calculate car age
+car_age = datetime.datetime.now().year - year
 
 # Predict button
 if st.button("Predict Price"):
     try:
-        input_data = np.array([
-            brand_map[brand],
-            model_map[model],
-            fuel_map[fuel],
-            transmission_map[transmission],
-            mileage,
-            engine,
-            power,
-            seats,
-            year,
-            kms
-        ]).reshape(1, -1)
-
+       input_df = pd.DataFrame([{
+    "Brand": brand_map[brand],
+    "Model": model_map[model],
+    "Engine": engine_size,
+    "Fuel": fuel_map[fuel],
+    "Transmission": transmission_map[transmission],
+     "Mileage": [mileage],
+    "Doors": [doors],
+    "Owner_Count": [owner_count],
+    "Car_Age": [car_age]
+    }])
         prediction = model.predict(input_data)[0]
         st.success(f"Estimated Car Price: ₹ {prediction:,.2f}")
     except Exception as e:
