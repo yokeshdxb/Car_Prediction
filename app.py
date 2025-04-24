@@ -68,18 +68,19 @@ car_age = datetime.datetime.now().year - year
 # Predict button
 if st.button("Predict Price"):
     try:
-       input_df = pd.DataFrame([{
-        "Brand": brand_map[brand],
-        "Model": model_map[model],
-        "Engine": engine_size,
-        "Fuel": fuel_map[fuel],
-        "Transmission": transmission_map[transmission],
-         "Mileage": [mileage],
-        "Doors": [doors],
-        "Owner_Count": [owner_count],
-        "Car_Age": [car_age]
+        input_df = pd.DataFrame([{
+            "Brand": brand_map[brand],
+            "Model": model_map[model],
+            "Engine": engine_size,
+            "Fuel": fuel_map[fuel],
+            "Transmission": transmission_map[transmission],
+            "Mileage": mileage,
+            "Doors": doors,
+            "Owner_Count": owner_count,
+            "Car_Age": car_age
         }])
-        prediction = model.predict(input_data)[0]
+
+        prediction = model.predict(input_df)[0]
         st.success(f"Estimated Car Price: ₹ {prediction:,.2f}")
     except Exception as e:
         st.error(f"Prediction failed: {str(e)}")
