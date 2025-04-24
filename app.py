@@ -6,8 +6,10 @@ import datetime
 
 
 # Load the model
-with open('Car_Regressor.pkl', 'rb') as f:
+with open('Car_Regressor_new.pkl', 'rb') as f:
     model = pickle.load(f)
+
+st.write("Loaded model type:", type(model))
 
 # Encoded label mappings
 brand_to_models = {
