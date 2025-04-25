@@ -7,9 +7,9 @@ import datetime
 
 # Load the model
 with open('Car_Regressor_New.pkl', 'rb') as f:
-    model = pickle.load(f)
+    model_X = pickle.load(f)
 
-st.write("Loaded model type:", type(model))
+st.write("Loaded model type:", type(model_X))
 
 # Encoded label mappings
 brand_to_models = {
@@ -52,7 +52,7 @@ st.title("🚗 Used Car Price Predictor")
 
 ## Brand selection
 brand = st.selectbox("Select Brand", list(brand_to_models.keys()))
-model_x = st.selectbox("Select Model", brand_to_models[brand])
+model_1 = st.selectbox("Select Model", brand_to_models[brand])
 engine_size = st.number_input("Engine Size (L)", min_value=0.5, max_value=10.0, value=1.5, step=0.1)
 fuel = st.selectbox("Select Fuel Type", list(fuel_map.keys()))
 transmission = st.selectbox("Select Transmission", list(transmission_map.keys()))
@@ -70,9 +70,9 @@ if st.button("Predict Price"):
     try:
         input_df = pd.DataFrame([{
             "Brand": brand_map[brand],
-            "Model_x": model_map[model_x],
-            "Engine": engine_size,
-            "Fuel": fuel_map[fuel],
+            "Model": model_map[model_1],
+            "Engine_Size": engine_size,
+            "Fuel_Type": fuel_map[fuel],
             "Transmission": transmission_map[transmission],
             "Mileage": mileage,
             "Doors": doors,
@@ -80,7 +80,7 @@ if st.button("Predict Price"):
             "Car_Age": car_age
         }])
 
-        prediction = model.predict(input_df)[0]
+        prediction = model_X.predict(input_df)[0]
         st.success(f"Estimated Car Price: ₹ {prediction:,.2f}")
     except Exception as e:
         st.error(f"Prediction failed: {str(e)}")
