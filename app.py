@@ -9,7 +9,7 @@ import datetime
 with open('Car_Regressor_New.pkl', 'rb') as f:
     model_X = pickle.load(f)
 
-st.write("Loaded model type:", type(model_X))
+#st.write("Loaded model type:", type(model_X))
 
 # Encoded label mappings
 brand_to_models = {
@@ -56,7 +56,7 @@ model_1 = st.selectbox("Select Model", brand_to_models[brand])
 engine_size = st.number_input("Engine Size (L)", min_value=0.5, max_value=10.0, value=1.5, step=0.1)
 fuel = st.selectbox("Select Fuel Type", list(fuel_map.keys()))
 transmission = st.selectbox("Select Transmission", list(transmission_map.keys()))
-mileage = st.number_input("Mileage (km)", min_value=0, max_value=50000, value=5000)
+mileage = st.number_input("Mileage (km)", min_value=0, max_value=200000, value=5000)
 doors = st.selectbox("Number of Doors", [2, 3, 4, 5])
 owner_count = st.selectbox("Previous Owners", [0, 1, 2, 3, 4])
 year = st.slider("Year of Manufacture", 1990, datetime.datetime.now().year, 2015)
