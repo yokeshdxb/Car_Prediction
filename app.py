@@ -65,7 +65,7 @@ year = st.slider("Year of Manufacture", 1990, datetime.datetime.now().year, 2015
 # Calculate car age
 car_age = datetime.datetime.now().year - year
 
-# Predict button
+# Predict button, correct
 if st.button("Predict Price"):
     try:
         input_df = pd.DataFrame([{
