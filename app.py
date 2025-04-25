@@ -81,7 +81,7 @@ if st.button("Predict Price"):
         }])
 
         prediction = model_X.predict(input_df)[0]
-        st.success(f"Estimated Car Price: ₹ {prediction:,.2f}")
+        st.success(f"Estimated Car Price: $ {prediction:,.2f}")
     except Exception as e:
         st.error(f"Prediction failed: {str(e)}")
 
