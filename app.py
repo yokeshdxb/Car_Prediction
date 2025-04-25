@@ -52,7 +52,7 @@ st.title("🚗 Used Car Price Predictor")
 
 ## Brand selection
 brand = st.selectbox("Select Brand", list(brand_to_models.keys()))
-model = st.selectbox("Select Model", brand_to_models[brand])
+model_x = st.selectbox("Select Model", brand_to_models[brand])
 engine_size = st.number_input("Engine Size (L)", min_value=0.5, max_value=10.0, value=1.5, step=0.1)
 fuel = st.selectbox("Select Fuel Type", list(fuel_map.keys()))
 transmission = st.selectbox("Select Transmission", list(transmission_map.keys()))
@@ -70,7 +70,7 @@ if st.button("Predict Price"):
     try:
         input_df = pd.DataFrame([{
             "Brand": brand_map[brand],
-            "Model": model_map[model],
+            "Model_x": model_map[model_x],
             "Engine": engine_size,
             "Fuel": fuel_map[fuel],
             "Transmission": transmission_map[transmission],
